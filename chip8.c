@@ -77,7 +77,7 @@ void draw_sprite(uint8_t x, uint8_t y, uint8_t n) {
 
             // if drawing to the screen would cause any pixel to be erased,
             // set the collision flag to 1
-            if (bit == 1 && *pixelp ==1) V[0xF] = 1;
+            if (bit == 1 && *pixelp == 1) V[0xF] = 1;
 
             // draw this pixel by XOR
             *pixelp = *pixelp ^ bit;
@@ -248,7 +248,7 @@ void chip8_emulatecycle() {
                     break;
                 case 0x5: 
                     p("V[0x%x] = V[0x%x] - V[0x%x] = 0x%x - 0x%x\n", x, x, y, V[x], V[y]);
-                    V[0xF] = (V[x] > V[y]) ? 1 : 0;
+                    V[0xF] = (V[x] >= V[y]) ? 1 : 0;
                     V[x] = V[x] - V[y];
                     break;
                 case 0x6:
@@ -258,7 +258,7 @@ void chip8_emulatecycle() {
                     break;
                 case 0x7:
                     p("V[0x%x] = V[0x%x] - V[0x%x] = 0x%x - 0x%x\n", x, y, x, V[y], V[x]);
-                    V[0xF] = (V[y] > V[x]) ? 1 : 0;
+                    V[0xF] = (V[y] >= V[x]) ? 1 : 0;
                     V[x] = V[y] - V[x];
                     break;
                 case 0xE:
